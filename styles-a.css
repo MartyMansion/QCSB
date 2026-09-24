@@ -1,0 +1,160 @@
+/* QC Small Business — grounded mid/late-90s small-business look
+   Cream/beige, navy teal, maroon brick, silver bevels. No space themes. */
+
+:root {
+  --cream: #f5e6c8;
+  --cream-dark: #e8d4a8;
+  --page: #efe0c0;
+  --navy: #1a3a4a;
+  --navy-mid: #2a5a6a;
+  --maroon: #7a1f2b;
+  --maroon-light: #9a3a45;
+  --silver: #c8c8c8;
+  --silver-hi: #efefef;
+  --silver-lo: #8a8a8a;
+  --ink: #1a1a1a;
+  --muted: #3a3a3a;
+  --panel: #faf3e4;
+  --focus: #b8860b;
+  --font: Verdana, Arial, Helvetica, sans-serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 12px;
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.015) 2px,
+      rgba(0, 0, 0, 0.015) 3px
+    ),
+    var(--page);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+a {
+  color: var(--maroon);
+}
+
+a:hover {
+  color: var(--maroon-light);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--navy);
+  color: #fff;
+  padding: 8px 12px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* Page shell — classic bordered frame */
+.page-shell {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.page-cell {
+  background: var(--cream);
+  border: 3px solid var(--navy);
+  box-shadow:
+    inset 1px 1px 0 var(--silver-hi),
+    inset -1px -1px 0 var(--silver-lo),
+    4px 4px 0 rgba(26, 58, 74, 0.25);
+  padding: 0;
+  vertical-align: top;
+}
+
+/* Top banner */
+.top-banner {
+  background: linear-gradient(180deg, var(--navy-mid) 0%, var(--navy) 100%);
+  color: #fff;
+  border-bottom: 3px solid var(--maroon);
+  padding: 10px 14px;
+}
+
+.banner-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.banner-brand {
+  vertical-align: middle;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand-link img {
+  border: 2px solid var(--silver);
+  background: var(--cream);
+  border-radius: 2px;
+}
+
+.brand-link strong {
+  display: block;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.brand-link em {
+  display: block;
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--cream-dark);
+  font-weight: normal;
+}
+
+.banner-nav {
+  text-align: right;
+  vertical-align: middle;
+  font-size: 0.82rem;
+}
+
+.banner-nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 2px 4px;
+}

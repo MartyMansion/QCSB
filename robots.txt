@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qcsmallbusiness.com/sitemap.xml

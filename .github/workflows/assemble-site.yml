@@ -1,0 +1,48 @@
+name: Assemble deployable site
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/assemble-site.yml'
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build full index.html and styles.css
+        run: |
+          set -euo pipefail
+          # Full index from parts (source of truth already on main)
+          if [[ -f index.part1.html ]]; then
+            cat index.part1.html index.part2.html index.part3.html index.part4.html index.part5.html > index.html
+          fi
+          # Full styles: current styles.css is first half; styles-b.css is second half
+          if [[ -f styles-b.css ]] && ! grep -q 'who-list' styles.css; then
+            cat styles.css styles-b.css > styles.css.tmp
+            mv styles.css.tmp styles.css
+          fi
+          # Remove split-part workaround files
+          rm -f index.part1.html index.part2.html index.part3.html index.part4.html index.part5.html
+          rm -f build-index.sh styles-a.css styles-a2.css styles-b.css
+          # Sanity checks
+          head -c 15 index.html | grep -q '<!DOCTYPE'
+          grep -q 'hub-ring' index.html
+          grep -q 'QC Small Business' index.html
+          ! grep -qi 'http-equiv="refresh"' index.html
+          grep -q 'hub-ring' styles.css
+          grep -q '#f5e6c8' styles.css
+          ! grep -q '@import' styles.css
+          wc -c index.html styles.css
+      - name: Commit assembled site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+            exit 0
+          fi
+          git commit -m "Assemble full deployable index.html and styles.css; remove split parts"
+          git push
